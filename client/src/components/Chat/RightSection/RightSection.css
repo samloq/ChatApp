@@ -1,0 +1,35 @@
+/* .right-section{
+	width: 70%;
+	float: left;
+	height: calc(100vh - 114px);
+	background-color: #F6F6F6;
+	position: relative;
+} */
+
+.right-section{
+	width: 70%;
+    float: left;
+    height: calc(88vh - 64px);
+    background-color: #F6F6F6;
+    overflow-x: hidden;
+}
+
+/* .right-section-bottom{
+	background: #fff;
+	width: 100%;
+	padding: 15px;
+	position: absolute;
+	bottom: 0px;
+	border-top:1px solid #E6E6E6;
+	text-align: center;
+} */
+
+.right-section-bottom{
+	background: #fff;
+    padding: 15px;
+    position: absolute;
+    bottom: 0px;
+    border-top: 1px solid #E6E6E6;
+    text-align: center;
+    width: calc(65% - 1px);
+}
