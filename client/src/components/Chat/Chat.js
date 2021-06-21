@@ -3,6 +3,8 @@ import NavBar from '../NavBar/NavBar';
 import Head from './Head/Head';
 import LeftSection from './LeftSection/LeftSection';
 import RightSection from './RightSection/RightSection';
+import OnlineSection from './OnlineSection/OnlineSection';
+
 
 import './Chat.css';
 
@@ -25,7 +27,13 @@ const Chat = ({
             <NavBar/>
             <Head user={user}/>
             <div className="body-section">
-                <LeftSection conversations={conversations} user={user} setCurrentChat={setCurrentChat} onlineUsers={onlineUsers} currentId={user._id}/>
+                <LeftSection 
+                    conversations={conversations} 
+                    user={user} 
+                    setCurrentChat={setCurrentChat} 
+                    onlineUsers={onlineUsers} 
+                    currentId={user._id}
+                />
                 <RightSection 
                     currentChat={currentChat} 
                     messages={messages} 
@@ -36,6 +44,12 @@ const Chat = ({
                     handleSubmit={handleSubmit}
                     conversations={conversations}
                 />
+                <OnlineSection
+                    onlineUsers={onlineUsers}
+                    currentId={user._id}
+                    setCurrentChat={setCurrentChat}
+                />
+                
             </div>
         </React.Fragment>
     )

@@ -15,11 +15,11 @@ const LeftSection =
     <React.Fragment>
     <div className="left-section">
         <ul>
-            {onlineUsers.length === 0?conversations.map((c, k) => (
+            {conversations.map((c, k) => (
               <div onClick={()=>setCurrentChat(c)} key={k}>
                   <Conversation conversation={c} currentUser={user} onlineUsers={onlineUsers} currentId={user._id}/>
               </div>
-        )): <OnlineUsers onlineUsers={onlineUsers} currentId={currentId} setCurrentChat={setCurrentChat}/>}
+            ))}
         </ul>
 	</div>
   </React.Fragment>

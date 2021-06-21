@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 
-export default function Conversation({ conversation, currentUser }){
+export default function Conversation({ conversation, currentUser, onlineUsers }){
     const [user, setUser] = useState("");
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(()=>{
@@ -19,18 +19,23 @@ export default function Conversation({ conversation, currentUser }){
         }
         getUser();
     },[currentUser, conversation]);
-    return(
+
+return (
+    <>
+    {
         <li>
-                     <div className="chatList">
-                         <div className="img">
-                             <img src="https://nicesnippets.com/demo/man04.png" alt="user_ico"/>
-                         </div>
-                         <div className="desc">
-                            <small className="time">4 day</small>
-                             <h5>{user.username}</h5>
-                             <small>Lorem ipsum dolor sit amet...</small>
-                        </div>
-                     </div>
-                 </li>
-        )
+        <div className="chatList">
+            <div className="img">
+                <img src="https://nicesnippets.com/demo/man04.png" alt="user_ico"/>
+            </div>
+            <div className="desc">
+               <small className="time">4 day</small>
+                <h5>{user.username}</h5>
+                <small>Lorem ipsum dolor sit amet...</small>
+           </div>
+        </div>
+    </li>
+    }
+    </>);
+
 }

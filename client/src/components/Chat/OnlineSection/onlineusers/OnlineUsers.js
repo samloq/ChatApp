@@ -25,6 +25,7 @@ const [friends, setFriends] = useState([]);
     console.log(e);
     try{
         const res = await axios.get(`http://localhost:5000/api/v1/conversations/find/${currentId}/${e._id}`);
+        console.log(res.data);
         setCurrentChat(res.data);
     }catch(err)
     {
@@ -37,7 +38,8 @@ const [friends, setFriends] = useState([]);
 }, [friends, onlineUsers]);
 
   return (
-    <div>
+    <div className={"onlineSection"}>
+        <ul>
         {onlineFriends.map((e,k) => (<li className="active" key={k} onClick={() => handleClick(e)}>
               <div className="chatList">
                   <div className="img">
@@ -51,6 +53,7 @@ const [friends, setFriends] = useState([]);
                   </div>
               </div>
           </li>))}
+        </ul>
     </div>
   )
 }

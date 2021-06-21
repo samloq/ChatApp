@@ -8,7 +8,6 @@ const User = require('../models/user.model');
 //add
 router.post("/", async(req, res) => {
   const newMessage = new Message(req.body);
-  console.log(req.body);
   try{
       const savedMessage = await newMessage.save();
       res.status(200).json(savedMessage);
