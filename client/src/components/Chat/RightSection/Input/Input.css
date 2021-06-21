@@ -2,22 +2,30 @@
 	border:0px;
 	padding:8px 5px;
 	width:calc(100% - 150px);
+	padding: 11px 5px;
 }
+
+.right-section-bottom input[type=text]:focus{
+	border: 1px solid lightgray;
+	outline: none;
+}
+
 .right-section-bottom .btn-send{
-	border:0px;
+	border:1px solid lightgray;
 	padding: 8px 10px;
 	float: right;
-	margin-right: 30px;
 	color: #009EF7;
 	font-size: 18px;
 	background: #fff;
 	cursor: pointer;
+	border-radius: 50%;
 }
 .upload-btn{
   position: relative;
   overflow: hidden;
   display: inline-block;
   float: left;
+  border: 1px solid lightgray;
 }
 .upload-btn .btn{
   	border:0px;

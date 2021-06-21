@@ -18,6 +18,11 @@
 	padding: 15px 0px;
 	cursor: pointer;
 }
+
+.left-section ul > div {
+	border-radius: 0px;
+    border-bottom: 1px solid #ececec;
+}
 .left-section ul li.active{
 	background: #009EF7;
 	color: #fff;
