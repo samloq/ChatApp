@@ -107,12 +107,16 @@
     width: 80%;
     padding: 15px 0px;
     clear: both;
+    border-bottom: 1px solid #d79494;
+    border-bottom-right-radius: 10px;
   }
   .message ul li.msg-left{
     float: left;
   }
   .message ul li.msg-left p{
     margin-left:70px;
+    color: white;
+    font-size: 13px;
   }
   .message ul li.msg-left img{
     position: absolute;
@@ -149,6 +153,15 @@
     right: 0px;
     bottom: 30px;
   }
+
+  .message ul li.msg-right p {
+    text-align: right;
+    margin-right: 69px;
+    color:white;
+    font-size: 13px;
+  }
+
+
   .message ul li.msg-right .msg-desc{
     margin-right: 70px;
     font-size: 12px;

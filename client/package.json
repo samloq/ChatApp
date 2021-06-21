@@ -20,6 +20,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^4.0.1",
     "react-scroll-to-bottom": "^4.1.0",
+    "react-select-search": "^3.0.7",
     "redux": "^4.0.5",
     "redux-devtools": "^3.5.0",
     "redux-devtools-extension": "^2.13.8",

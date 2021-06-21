@@ -34,6 +34,7 @@ const Chat = ({
                     setNewMessage={setNewMessage}
                     newMessage={newMessage}
                     handleSubmit={handleSubmit}
+                    conversations={conversations}
                 />
             </div>
         </React.Fragment>

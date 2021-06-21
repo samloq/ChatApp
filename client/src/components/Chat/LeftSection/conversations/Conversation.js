@@ -20,13 +20,6 @@ export default function Conversation({ conversation, currentUser }){
         getUser();
     },[currentUser, conversation]);
     return(
-        // <div className="conversation">
-        //     <img 
-        //     className="conversationImg"  
-        //     alt="" 
-        //     />
-        //     <span className="conversationName">{user.username}</span>
-        // </div>
         <li>
                      <div className="chatList">
                          <div className="img">

@@ -46,9 +46,9 @@
   left: auto;
   width: 100%;
   top: 0px;
-  -webkit-box-shadow: -8px 4px 10px #a1a1a1;
-  -moz-box-shadow: -8px 4px 10px #a1a1a1;
-  box-shadow: -8px 4px 10px #a1a1a1;
+  -webkit-box-shadow: -4px 2px 12px #999999;
+  -moz-box-shadow: -4px 2px 12px #999999;
+  box-shadow: -4px 2px 12px #999999;
 }
 
 .left-section .chatList{

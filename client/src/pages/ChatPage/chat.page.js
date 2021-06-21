@@ -38,7 +38,6 @@ const ChatPage = ({user}) => {
 
         socket.current.on("getUsers", users=>{
             setOnlineUsers(user.followings.filter(f=> users.some(u => u.userId === f)));
-            console.log(onlineUsers);
         });
     }, [user]);
 
@@ -54,6 +53,7 @@ const ChatPage = ({user}) => {
         }
         getConversations();
     }, [user._id]);
+
 
     useEffect(()=>{
         const getMessages = async () => {
@@ -86,7 +86,6 @@ const ChatPage = ({user}) => {
 
         try{
             const res = await axios.post("http://localhost:5000/api/v1/messages", message);
-            console.log(res);
             setMessages([...messages, res.data]);
             setNewMessage("");
         }catch(err)

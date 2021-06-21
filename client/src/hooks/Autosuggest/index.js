@@ -22,7 +22,7 @@ function UseAutoSuggest({user}) {
 
     const renderSuggestion = suggestion => (
         <div className={'hint'}>
-            <p>{suggestion[`${key}`]}</p>
+            <p className={'item'}>{suggestion[`${key}`]}</p>
         </div>
     );
     

@@ -28,7 +28,7 @@ const getUser = (userId) => {
 
 socket.on("connection", (socket) => {
     console.log('user connected.');
-    //take userId and socketId from user
+    
     socket.on("addUser", userId=>{
         addUser(userId, socket.id);
         socket.emit("getUsers", users);
