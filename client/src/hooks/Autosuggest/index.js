@@ -8,12 +8,11 @@ import './hint.css';
 
 
 
-function UseAutoSuggest() {
+function UseAutoSuggest({user}) {
     const ENDPOINT = `http://localhost:5000/api/v1/users`;
     const { loading, results, error } = useDataFetching(ENDPOINT);
     
-    
-    const key = 'user';
+    const key = 'username';
     
     const [suggestions, setSuggestions] = useState([]);
     const [value, setValue] = useState('');
@@ -21,18 +20,15 @@ function UseAutoSuggest() {
 
 
 
-    // if (loading || error) {
-    //     return loading ? "Loading..." : error.message;
-    // }
-
     const renderSuggestion = suggestion => (
         <div className={'hint'}>
-            {suggestion[`${key}`]}
+            <p>{suggestion[`${key}`]}</p>
         </div>
     );
     
     
     const getSuggestions = v => {
+
         const inputValue = v.trim().toLowerCase();
         const inputLength = inputValue.length;
         return inputLength === 0 ? [] : data.filter(e =>
@@ -46,12 +42,48 @@ function UseAutoSuggest() {
 
     useEffect(() => {
         setData(results.users);
-    },[results]);
+    });
+
+    const onSuggestionSelected = (event, { suggestion }) =>{
+        let selectedUser = data.filter(e => e.username === suggestion.username && e.username !== user.username);
+        console.log(value);
+        console.log(selectedUser);
+        if(selectedUser.length === 0) return ;
+
+        console.log(selectedUser[0]);
+
+        let newConversation = {
+            senderId: user._id,
+            receiverId: selectedUser[0].id
+        };
+
+        console.log(newConversation);
+
+        // fetch('http://localhost:5000/api/v1/conversations', {
+        //     method: 'post',
+        //     headers: {
+        //     'Accept': 'application/json, text/plain, */*',
+        //     'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(newConversation)
+        // }).then(res => res.json())
+        // .then(res => console.log(res));
+        fetch('http://localhost:5000/api/v1/users/friends/add', {
+            method: 'post',
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newConversation)
+        }).then(res => res.json())
+        .then(res => console.log(res));
+
+    }
 
     const inputProps = {
-        placeholder: 'Type username',
+        placeholder: 'Type username...',
         value,
-        onChange: (e, {newValue}) => setValue(newValue) 
+        onChange: (e, {newValue}) => { setValue(newValue)} 
     };
 
     const onSuggestionsFetchRequested = ({ value }) => {
@@ -71,6 +103,7 @@ function UseAutoSuggest() {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
+        onSuggestionSelected={onSuggestionSelected}
     />)
 
 

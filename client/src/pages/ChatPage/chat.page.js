@@ -11,12 +11,13 @@ const ChatPage = ({user}) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     //user
     var socket = useRef();
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("http://localhost:5000/");
+        socket.current = io("http://localhost:5000");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -36,7 +37,8 @@ const ChatPage = ({user}) => {
         socket.current.emit("addUser", user._id);
 
         socket.current.on("getUsers", users=>{
-            console.log(users)
+            setOnlineUsers(user.followings.filter(f=> users.some(u => u.userId === f)));
+            console.log(onlineUsers);
         });
     }, [user]);
 
@@ -108,6 +110,7 @@ const ChatPage = ({user}) => {
                 setNewMessage={setNewMessage}
                 newMessage={newMessage}
                 handleSubmit={handleSubmit}
+                onlineUsers={onlineUsers}
             />
         </React.Fragment>
     );

@@ -2,14 +2,14 @@ import React from 'react';
 import './Head.css';
 import UseAutoSuggest from './../../../hooks/Autosuggest/index';
 
-const Head = () => {
+const Head = ({user}) => {
     return (
         <React.Fragment>
         <div className="head-section">
                 <div className="headLeft-section">
                     <div className="headLeft-sub">
                         
-                        <UseAutoSuggest />
+                        <UseAutoSuggest user={user}/>
                     </div>
                 </div>
                 <div className="headRight-section">

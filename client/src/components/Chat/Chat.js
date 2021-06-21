@@ -17,14 +17,15 @@ const Chat = ({
     scrollRef,
     setNewMessage,
     newMessage,
-    handleSubmit
+    handleSubmit,
+    onlineUsers
 }) => {
     return(
         <React.Fragment>
             <NavBar/>
-            <Head/>
+            <Head user={user}/>
             <div className="body-section">
-                <LeftSection conversations={conversations} user={user} setCurrentChat={setCurrentChat}/>
+                <LeftSection conversations={conversations} user={user} setCurrentChat={setCurrentChat} onlineUsers={onlineUsers} currentId={user._id}/>
                 <RightSection 
                     currentChat={currentChat} 
                     messages={messages} 

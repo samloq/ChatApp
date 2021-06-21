@@ -6,8 +6,10 @@ let app = express();
 let http = require('http');
 let server = http.createServer(app);
 let socketio = require('socket.io');
-let io = socketio(server);
-require('./socket')(io);
+let socket = socketio(server, {cors: {
+  origin: "http://localhost:5000" // or "*"
+  }});
+require('./socket')(socket);
 let session = require('express-session');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
@@ -36,7 +38,7 @@ const uRoute = require("./routes/uroute.routes");
 //     useNewUrlParser: true
 // });
 
-mongoose.connect('mongodb://127.0.0.1:27017/newChatApp', {
+mongoose.connect('mongodb://127.0.0.1:27017/n', {
      useNewUrlParser: true,
      useUnifiedTopology: true,
      useCreateIndex: true,
@@ -83,6 +85,10 @@ app.use('/api/v1/friends', uRoute);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+})
 
 
 

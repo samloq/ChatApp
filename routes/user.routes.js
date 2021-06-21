@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
 const User = require('../models/user.model');
+const Conversation = require('../models/conversation.model');
 
 // router.get('/users/current', [auth], (req,res) => {
 //     const id = req.id;
@@ -135,27 +136,7 @@ router.post('/login', (req,res,next) => {
 });
 
 
-//get friends
-// router.get("/users", async (req, res) => {
-//     console.log(1);
-//     console.log(req.query.userId);
-//     try {
-//       const user = await User.findById(req.query.userId);
-//       const friends = await Promise.all(
-//         user.followings.map((friendId) => {
-//           return User.findById(friendId);
-//         })
-//       );
-//       let friendList = [];
-//       friends.map((friend) => {
-//         const { _id, username } = friend;
-//         friendList.push({ _id, username });
-//       });
-//       res.status(200).json(friendList)
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   });
+
 //GET ALL USERS
 
 router.get('/users', (req,res) => {
@@ -181,27 +162,38 @@ router.get('/users', (req,res) => {
 
 //GET USER
 
-router.get('/users/:id', [auth], (req,res) => {
-    let id = req.params.id;
-    User.findById(id, (err, user) => {
-        if(err) {
+// router.get('/users/:id', [auth], (req,res) => {
+//     let id = req.params.id;
+//     User.findById(id, (err, user) => {
+//         if(err) {
+//             res.status(401).json({});
+//         } else {
+//             res.json({user});
+//         }
+//     });
+// });
+
+// router.get('/users/:name', (req,res) => {
+//     let userName = req.params.name;
+//     User.findOne({username: userName}, function(err, obj) {
+//         if(err) {
+//             res.status(401).json({});
+//         } else {
+//             res.json({user});
+//         }
+//     })
+// });
+
+router.get("/users/get/user/:username", (req,res) => {
+    User.findOne({username: req.params.username}, (err, user) => {
+        if(err){
             res.status(401).json({});
         } else {
-            res.json({user});
+            if(user) res.status(200).json(user.username)
         }
-    });
+   }) 
 });
 
-router.get('/users/:name', (req,res) => {
-    let userName = req.params.name;
-    User.findOne({username: userName}, function(err, obj) {
-        if(err) {
-            res.status(401).json({});
-        } else {
-            res.json({user});
-        }
-    })
-});
 
 //UPDATE USER
 
@@ -239,6 +231,79 @@ router.delete('/users/:id', [auth], (req,res) => {
         }
     });
 });
+
+//get friends of user
+router.get("/users/friends/:userId", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.userId);
+      const friends = await Promise.all(
+        user.followings.map((friendId) => {
+          return User.findById(friendId);
+        })
+      );
+      let friendList = [];
+      friends.map((friend) => {
+        const { _id, username } = friend;
+        friendList.push({ _id, username });
+      });
+      res.status(200).json(friendList)
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+
+  //add new friend
+  router.post('/users/friends/add', async (req,res) => {
+    try {
+        Conversation.findOne({ members: [req.body.senderId, req.body.receiverId]})
+        .then(async result => {
+          if(result) {
+            res.status(500).json({"Error":"conversation already exists."});
+          } else {
+            const savedConversation = await newConversation.save();
+            res.status(200).json(savedConversation)
+            }
+        });
+
+    }catch(err){
+        res.status(500).json(err);
+    }
+
+    try{
+        
+        User.findById(req.body.senderId)
+        .then(async (user, err) => {
+            if(user){
+                user.followings.includes(req.body.receiverId)? [...user.followings] : user.followings.push(req.body.receiverId);
+                user.save();
+                res.status(200).json(user);
+            }
+            if(err){
+                res.status(500).json(err);
+            }
+        });
+
+    }catch(err){
+        res.status(500).json(err);
+    }
+
+    try{
+        User.findById(req.body.receiverId)
+        .then(async (user, err) => {
+            if(user){
+                user.followings.includes(req.body.senderId)? [...user.followings] : user.followings.push(req.body.senderId);
+                user.save();
+                res.status(200).json(user);
+            }
+            if(err){
+                res.status(500).json(err);
+            }
+        });
+    }catch(err){
+        res.status(500).json(err);
+    }
+  });
 
 
 

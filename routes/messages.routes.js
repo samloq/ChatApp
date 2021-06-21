@@ -3,6 +3,7 @@ const Message = require('../models/message.model');
 
 //add
 router.post("/", async(req, res) => {
+
     const newMessage = new Message(req.body);
 
     try{

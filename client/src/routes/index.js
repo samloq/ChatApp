@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -12,6 +12,8 @@ import ChatPage from '../pages/ChatPage/chat.page';
 
 
 const routes = ({user, loggedIn}) => {
+
+  
   return (
     <ConnectedRouter history={history}>
         <React.Fragment>
