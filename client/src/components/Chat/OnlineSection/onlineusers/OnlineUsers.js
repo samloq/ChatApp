@@ -16,16 +16,15 @@ const [friends, setFriends] = useState([]);
       const getFriends = async () => {
           const res = await axios.get('http://localhost:5000/api/v1/users/friends/'+currentId);
           
+          //Set friends of current user
           setFriends(res.data);
       }
       getFriends();
   },[currentId]);
 
   const handleClick = async(e) => {
-    console.log(e);
     try{
         const res = await axios.get(`http://localhost:5000/api/v1/conversations/find/${currentId}/${e._id}`);
-        console.log(res.data);
         setCurrentChat(res.data);
     }catch(err)
     {
@@ -34,6 +33,7 @@ const [friends, setFriends] = useState([]);
   }
 
   useEffect(() => {
+    //set online friends of current user
     setOnlineFriends(friends.filter(f => onlineUsers.includes(f._id)));
 }, [friends, onlineUsers]);
 

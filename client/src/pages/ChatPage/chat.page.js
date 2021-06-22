@@ -12,6 +12,7 @@ const ChatPage = ({user}) => {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [onlineFriends, setOnlineFriends] = useState({});
     //user
     var socket = useRef();
     const scrollRef = useRef();
@@ -26,6 +27,14 @@ const ChatPage = ({user}) => {
             })
         });
     },[]);
+
+    useEffect(() => {
+        socket.current.emit('set-user-data', (user.username));
+        socket.current.on('onlineStack', data => {
+            setOnlineFriends(data);
+        });
+    },[onlineUsers]);
+    
 
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
@@ -97,6 +106,7 @@ const ChatPage = ({user}) => {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({behavior: "smooth"});
     },[messages]);
+
     return(
         <React.Fragment>
             <Chat

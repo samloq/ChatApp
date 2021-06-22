@@ -9,6 +9,7 @@ const Input = ({
     const handlePress = (e) => {
         if(e.key === 'Enter'){
             handleSubmit(e);
+            e.target.value = "";
         }
     }
     return (

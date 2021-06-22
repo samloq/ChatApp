@@ -261,13 +261,23 @@ router.get("/users/friends/:userId", async (req, res) => {
           if(result) {
             res.status(500).json({"Error":"conversation already exists."});
           } else {
-            const newConversation = new Conversation({
-                members: [req.body.senderId, req.body.receiverId]
+            Conversation.findOne({ members: [req.body.receiverId, req.body.senderId]})
+            .then(async result => {
+              if(result) {
+                res.status(500).json({"Error":"conversation already exists."});
+              } else {
+                const newConversation = new Conversation({
+                    members: [req.body.senderId, req.body.receiverId]
+                });
+                const savedConversation = await newConversation.save();
+                res.status(200).json(savedConversation)
+                }
             });
-            const savedConversation = await newConversation.save();
-            res.status(200).json(savedConversation)
+            
             }
         });
+
+
 
     }catch(err){
         res.status(500).json(err);

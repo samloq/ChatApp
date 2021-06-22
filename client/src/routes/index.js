@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { history } from '../store';
 
 
 import IndexPage from '../pages/IndexPage/index.page';
 import ChatPage from '../pages/ChatPage/chat.page';
 
-//import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 
 
 const routes = ({user, loggedIn}) => {
@@ -24,7 +25,11 @@ const routes = ({user, loggedIn}) => {
             <Route path="/" exact component={IndexPage} />
             {/* <Route path="/chat" exact component ={ChatPage} user={user}/> */}
 
-          <Route path="/chat" render={() => <ChatPage user={user}/>}/>
+          {/* <PrivateRoute path="/chat" component={() => <ChatPage user={user}/>} user={user}/> */}
+          
+          {<Route path="/chat" user={user} render={(props) =>
+              loggedIn ? <ChatPage user={user} {...props}/> : <Redirect to="/" />
+            }/>}
         </Switch>
         </React.Fragment>
     </ConnectedRouter>

@@ -1,97 +1,4 @@
-/* .messageBox {
-    background: #F3F3F3;
-    border-radius: 20px;
-    padding: 5px 20px;
-    color: white;
-    display: inline-block;
-    max-width: 80%;
-  }
-  
-  .messageText {
-    width: 100%;
-    letter-spacing: 0;
-    float: left;
-    font-size: 1.1em;
-    word-wrap: break-word;
-  }
-  
-  .messageText img {
-    vertical-align: middle;
-  }
-  
-  .messageContainer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 5%;
-    margin-top: 3px;
-  }
-  
-  .sentText {
-    display: flex;
-    align-items: center;
-    font-family: Helvetica;
-    color: #828282;
-    letter-spacing: 0.3px;
-  }
-  
-  .pl-10 {
-    padding-left: 10px;
-  }
-  
-  .pr-10 {
-    padding-right: 10px;
-  }
-  
-  .justifyStart {
-    justify-content: flex-start;
-  }
-  
-  .justifyEnd {
-    justify-content: flex-end;
-  }
-  
-  .colorWhite {
-    color: white;
-  }
-  
-  .colorDark {
-    color: #353535;
-  }
-  
-  .backgroundBlue {
-    background: #2979FF;
-  }
-  
-  .backgroundLight {
-    background: #F3F3F3;
-  } */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* .message{
-    height: calc(100% - 68px);
-      font-family: sans-serif;
-      overflow-y: hidden;
-      overflow-x: hidden;
-      padding: 10px;
-  } */
-
-  .message{
+ .message{
         font-family: sans-serif;
         padding: 10px;
   }
@@ -130,6 +37,12 @@
     padding:5px 10px;
     border-radius: 5px 5px 5px 0px;
     position: relative;
+    word-break: break-all;
+  }
+
+  .message ul li.msg-left .msg-desc img {
+    bottom: 0px;
+    position: relative;
   }
   .message ul li.msg-left .msg-desc:before{
     position: absolute;
@@ -153,6 +66,7 @@
     right: 0px;
     bottom: 30px;
   }
+  
 
   .message ul li.msg-right p {
     text-align: right;
@@ -170,7 +84,14 @@
     padding:5px 10px;
     border-radius: 5px 5px 5px 0px;
     position: relative;
+    word-break: break-all;
   }
+
+  .message ul li.msg-right .msg-desc img {
+    bottom: 0px;
+    position: relative;
+  }
+
   .message ul li.msg-right .msg-desc:before{
     position: absolute;
     content: '';

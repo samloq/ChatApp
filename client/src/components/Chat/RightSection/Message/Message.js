@@ -3,13 +3,29 @@ import React from 'react';
 import ReactEmoji from 'react-emoji';
 import {format} from 'timeago.js';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import './Message.css';
 
 const Message = ({ message, own, user, conversations}) => {
 
 const [friend, setFriend] = useState("");
+
+const messageRef = useRef();
+
+useEffect(() => {
+  if (messageRef.current) {
+    messageRef.current.scrollIntoView(
+      {
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest'
+      })
+  }
+})
+
+
+
 useEffect(()=>{
     
         let friendId;
@@ -28,7 +44,7 @@ useEffect(()=>{
 
 if(own == true)
  {
-     return (<li className="msg-left">
+     return (<li className="msg-left" ref={messageRef}>
      <div className="msg-left-sub">
          <img src="https://nicesnippets.com/demo/man03.png" alt="user_ico"/>
          <p>{user.username}</p>
@@ -43,7 +59,7 @@ if(own == true)
  {
     return(
         <>
-            <li className="msg-right">
+            <li className="msg-right" ref={messageRef}>
                 <div className="msg-left-sub">
                     <img src="https://nicesnippets.com/demo/man04.png" alt="user_ico"/>
                     <p>{friend.username}</p>

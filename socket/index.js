@@ -8,6 +8,7 @@ const userSocket = {};
 let sendUserStack;
 
 
+
 let users = [];
 
 
@@ -26,6 +27,7 @@ const getUser = (userId) => {
 
 
 
+
 socket.on("connection", (socket) => {
     console.log('user connected.');
     
@@ -33,10 +35,8 @@ socket.on("connection", (socket) => {
         addUser(userId, socket.id);
         socket.emit("getUsers", users);
     });
-
-    socket.on("test", data => console.log(data));
     
-    socket.on('set-user-data', (username) => {
+    socket.on('set-user-data', (username, id) => {
         console.log(`${username} logged In`);
 
         socket.username = username;
@@ -46,7 +46,9 @@ socket.on("connection", (socket) => {
             description: username + " Logged In"
         });
 
+
         eventEmitter.emit('get-all-users');
+        
 
         sendUserStack = function() {
             for(i in userSocket) {
@@ -81,6 +83,7 @@ socket.on("connection", (socket) => {
         socket.emit("getUsers", users);
     });
 
+    
     eventEmitter.on('get-all-users', () => {
         User
             .find({})
@@ -96,6 +99,11 @@ socket.on("connection", (socket) => {
                 }
             });
     });
+
+
+
+
+
 })
 }
 

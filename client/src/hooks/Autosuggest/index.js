@@ -45,29 +45,17 @@ function UseAutoSuggest({user}) {
     });
 
     const onSuggestionSelected = (event, { suggestion }) =>{
-        let selectedUser = data.filter(e => e.username === suggestion.username && e.username !== user.username);
-        console.log(value);
-        console.log(selectedUser);
+        let selectedUser = data.filter(e => e.username === suggestion.username && e.username !== user.username && user.username !== suggestion.username);
+
         if(selectedUser.length === 0) return ;
 
-        console.log(selectedUser[0]);
+
 
         let newConversation = {
             senderId: user._id,
             receiverId: selectedUser[0].id
         };
 
-        console.log(newConversation);
-
-        // fetch('http://localhost:5000/api/v1/conversations', {
-        //     method: 'post',
-        //     headers: {
-        //     'Accept': 'application/json, text/plain, */*',
-        //     'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(newConversation)
-        // }).then(res => res.json())
-        // .then(res => console.log(res));
         fetch('http://localhost:5000/api/v1/users/friends/add', {
             method: 'post',
             headers: {
