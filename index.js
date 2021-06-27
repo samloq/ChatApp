@@ -16,6 +16,7 @@ let mongoose = require('mongoose');
 let path = require('path');
 let cors = require('cors');
 let MongoStore = require('connect-mongo')(session);
+const fileupload = require("express-fileupload");
 
 
 
@@ -27,6 +28,7 @@ const userRoutes = require('./routes/user.routes');
 const conversationsRoute = require("./routes/conversations.routes");
 const messageRoute = require("./routes/messages.routes");
 const uRoute = require("./routes/uroute.routes");
+
 
 //Database
 // mongoose.connect('mongodb://' + process.env.MONGO_HOST + '/' + process.env.MONGO_DATABASE, {
@@ -63,7 +65,9 @@ let corsOptions = {
 }
 app.use(cors());
 app.use(bodyParser.json());
+app.use(fileupload());
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static("files"));
 app.use(session({
   secret: 'secret session key',
   resave: false,
@@ -79,6 +83,7 @@ app.use('/api/v1/', userRoutes);
 app.use("/api/v1/conversations", conversationsRoute);
 app.use('/api/v1/messages', messageRoute);
 app.use('/api/v1/friends', uRoute);
+
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
@@ -98,5 +103,6 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, ()=> console.log('Server running at port: ', PORT));
+
 
 

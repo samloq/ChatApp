@@ -77,30 +77,41 @@ const ChatPage = ({user}) => {
         getMessages();
     },[currentChat]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, file, fileName, setLoaded) => {
         e.preventDefault();
+        let formData = new FormData();
+        formData.append("file", file);
+        formData.append("fileName", fileName);
+        
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1]);
+        // }
         const message = {
             sender: user._id,
             text: newMessage,
-            conversationId:currentChat._id
+            conversationId:currentChat._id,
         };
 
         const receiverId = currentChat.members.find(member => member !== user._id);
-
-        socket.current.emit("sendMessage", {
-            senderId: user._id,
-            receiverId,
-            text: newMessage
-        });
-
         try{
-            const res = await axios.post("http://localhost:5000/api/v1/messages", message);
+            const res = await axios.post(`http://localhost:5000/api/v1/messages/upload?sender=${message.sender}&text=${message.text}&conversationId=${message.conversationId}`,formData);
+            console.log(res.data);
             setMessages([...messages, res.data]);
+
+            socket.current.emit("sendMessage", {
+                senderId: user._id,
+                receiverId,
+                text: newMessage,
+                filePath: res.data.filePath
+            });
+
+
             setNewMessage("");
         }catch(err)
         {
             console.log(err);
         }
+
     }
 
     useEffect(() => {

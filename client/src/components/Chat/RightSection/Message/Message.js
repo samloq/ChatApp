@@ -4,6 +4,7 @@ import ReactEmoji from 'react-emoji';
 import {format} from 'timeago.js';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
+import download from 'downloadjs';
 
 import './Message.css';
 
@@ -50,6 +51,19 @@ if(own == true)
          <p>{user.username}</p>
          <div className="msg-desc">
              {ReactEmoji.emojify(message.text)}
+             {message.filePath !== "" && message.filePath?.length > 0 && <p>
+             <button
+                type="button"
+                onClick={async () => {
+                    const res = await fetch(`http://localhost:5000/api/v1/messages/download?filePath=${message.filePath}`);
+                    console.log(res);
+                    const blob = await res.blob();
+                    download(blob);
+                }}
+            >
+                    Download File
+            </button>
+        </p>}
          </div>
          <small>{format(message.createdAt)}</small>
      </div>
@@ -65,6 +79,18 @@ if(own == true)
                     <p>{friend.username}</p>
                     <div className="msg-desc">
                         {ReactEmoji.emojify(message.text)}
+                        {message.filePath !== "" && message.filePath?.length > 0 && <p>
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                const res = await fetch(`http://localhost:5000/api/v1/messages/download?filePath=${message.filePath}`);
+                                const blob = await res.blob();
+                                download(blob);
+                            }}
+                        >
+                                Download File
+                        </button>
+                    </p>}
                     </div>
                     <small>{format(message.createdAt)}</small>
                 </div>

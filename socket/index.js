@@ -67,13 +67,14 @@ socket.on("connection", (socket) => {
 
 
     //send and get message
-    socket.on("sendMessage", ({senderId, receiverId, text}) => {
+    socket.on("sendMessage", ({senderId, receiverId, text, filePath}) => {
         const user = getUser(receiverId);
         
 
         socket.to(user?.socketId).emit("getMessage", {
             senderId,
             text,
+            filePath
         })
     });
 

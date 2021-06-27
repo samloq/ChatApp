@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Input.css';
 
 const Input = ({
@@ -6,9 +6,20 @@ const Input = ({
 	newMessage,
     handleSubmit
 }) => {
+
+    const [file, setFile] = useState();
+    const [fileName, setFileName] = useState("");
+    const [loaded, setLoaded] = useState(0);
+
+
+    const saveFile = (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
+
     const handlePress = (e) => {
         if(e.key === 'Enter'){
-            handleSubmit(e);
+            handleSubmit(e, file, fileName, setLoaded);
             e.target.value = "";
         }
     }
@@ -17,7 +28,7 @@ const Input = ({
         <form onSubmit={e => {e.preventDefault();}}>
             <div className="upload-btn">
                 <button className="btn"><i className="fa fa-photo"/></button>
-                <input type="file" name="myfile"/>
+                <input type="file" name="myfile" onChange={saveFile}/>
             </div>
             <input 
                 type="text" name="" 
@@ -26,7 +37,7 @@ const Input = ({
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter"?handlePress(e):null}
             />
-            <button className="btn-send" onClick={handleSubmit}><i className="fa fa-send"/></button>
+            <button className="btn-send" onClick={(e) => handleSubmit(e, file, fileName, setLoaded)}><i className="fa fa-send"/></button>
 		</form>
         </React.Fragment>
     );
