@@ -14,7 +14,7 @@ const Input = ({
 
     const saveFile = (e) => {
         setFile(e.target.files[0]);
-        setFileName(e.target.files[0].name);
+        setFileName(e.target.files[0]?.name);
     };
 
     const handlePress = (e) => {
@@ -37,7 +37,7 @@ const Input = ({
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter"?handlePress(e):null}
             />
-            <button className="btn-send" onClick={(e) => handleSubmit(e, file, fileName, setLoaded)}><i className="fa fa-send"/></button>
+            <button className="btn-send" onClick={(e) => handlePress(e, file, fileName, setLoaded)}><i className="fa fa-send"/></button>
 		</form>
         </React.Fragment>
     );

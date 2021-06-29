@@ -14,3 +14,7 @@
 	width: calc(48.1% - 1px);
     padding: 12.7px;
 }
+
+.right-section-bottom > .conversationInfo {
+    color: lightgray;
+}

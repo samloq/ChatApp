@@ -9,7 +9,8 @@ const RightSection = ({
 	setNewMessage,
 	newMessage,
 	handleSubmit,
-	conversations
+	conversations,
+	currentChat
 }) => {
     return (
         <React.Fragment>
@@ -19,13 +20,15 @@ const RightSection = ({
 				<Messages message={m} own={m.sender === user._id} user={user} key={k} conversations={conversations}/> 
 			)
 		}
-
+	
 			<div className="right-section-bottom">
-				<Input
+				{
+					currentChat === null ? <><h1 className={`conversationInfo`}>Select conversation to start</h1></> : <Input
 					setNewMessage={setNewMessage}
 					value={newMessage}
 					handleSubmit={handleSubmit}
 				/>
+				}
 			</div>
 		</div>
 
